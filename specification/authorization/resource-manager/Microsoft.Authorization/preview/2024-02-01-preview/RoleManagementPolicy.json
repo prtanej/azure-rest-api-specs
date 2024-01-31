@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "AuthorizationManagementClient",
-    "version": "2020-10-01-preview",
+    "version": "2024-02-01-preview",
     "description": "Role based access control provides you a way to apply granular level policy administration down to individual resources or resource groups. These operations enable you to manage role assignments. A role assignment grants access to Azure Active Directory users."
   },
   "host": "management.azure.com",
@@ -597,6 +597,53 @@
         }
       }
     },
+    "RoleManagementPolicyPimOnlyModeRule": {
+      "description": "The role management policy PIM only mode rule.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/RoleManagementPolicyRule"
+        }
+      ],
+      "type": "object",
+      "properties": {
+        "pimOnlyModeSettings": {
+          "$ref": "#/definitions/PIMOnlyModeSettings",
+          "description": "The PIM Only Mode settings"
+        }
+      }
+    },
+    "PIMOnlyModeSettings": {
+      "description": "The PIM Only Mode settings.",
+      "type": "object",
+      "properties": {
+        "mode" : {
+          "type": "string",
+          "description": "Determines whether the setting is enabled, disabled or report only.",
+          "enum": [
+            "Disabled",
+            "Enabled",
+            "ReportOnly"
+          ],
+          "x-ms-enum": {
+            "name": "PIMOnlyMode",
+            "modelAsString": true
+          }
+        },
+        "excludes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/string"
+          },
+          "x-ms-identifiers": [],
+          "description": "The list of object IDs that the rule does not apply to."
+        },
+        "excludeAllServicePrincipals": {
+          "type": "boolean",
+          "description": "Exclude all service principals from this rule."
+        }
+      }
+    },
+
     "RoleManagementPolicyRuleTarget": {
       "description": "The role management policy rule target.",
       "type": "object",
@@ -647,7 +694,8 @@
         "RoleManagementPolicyAuthenticationContextRule",
         "RoleManagementPolicyEnablementRule",
         "RoleManagementPolicyExpirationRule",
-        "RoleManagementPolicyNotificationRule"
+        "RoleManagementPolicyNotificationRule",
+        "RoleManagementPolicyPimOnlyModeRule"
       ],
       "x-ms-enum": {
         "name": "RoleManagementPolicyRuleType",
