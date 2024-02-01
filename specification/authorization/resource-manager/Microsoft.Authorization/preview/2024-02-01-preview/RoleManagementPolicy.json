@@ -632,7 +632,7 @@
         "excludes": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/string"
+            "type": "string"
           },
           "x-ms-identifiers": [],
           "description": "The list of object IDs that the rule does not apply to."
